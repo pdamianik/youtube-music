@@ -32,6 +32,7 @@ const defaultConfig = {
 		shortcuts: {
 			enabled: false,
 			overrideMediaKeys: false,
+			toggleWindowPlayPause: false,
 		},
 		downloader: {
 			enabled: false,

@@ -12,6 +12,12 @@ module.exports = (win, options) => [
 		type: "checkbox",
 		checked: options.overrideMediaKeys,
 		click: item => setOption(options, "overrideMediaKeys", item.checked)
+	},
+	{
+		label: "Toggle Window on Play/Pause",
+		type: "checkbox",
+		checked: options.toggleWindowOnPlayPause,
+		click: item => setOption(options, "toggleWindowOnPlayPause", item.checked)
 	}
 ];
 

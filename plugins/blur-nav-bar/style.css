@@ -1,8 +1,8 @@
 #nav-bar-background,
 #header.ytmusic-item-section-renderer,
 ytmusic-tabs {
-	background: rgba(0, 0, 0, 0.3) !important;
-	backdrop-filter: blur(8px) !important;
+	background: rgba(0, 0, 0, 0.85) !important;
+	backdrop-filter: saturate(180%) blur(35px) !important;
 }
 
 #nav-bar-divider {

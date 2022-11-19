@@ -21,7 +21,38 @@ function setupMPRIS() {
 /** @param {Electron.BrowserWindow} win */
 function registerMPRIS(win) {
 	const songControls = getSongControls(win);
-	const { playPause, next, previous, volumeMinus10, volumePlus10, shuffle } = songControls;
+	const { next, previous, volumeMinus10, volumePlus10, shuffle } = songControls;
+	let playPauseTimeout, playPauseCount = 0;
+
+	const playPause = () => {
+		songControls.playPause();
+		if (!config.get("plugins.shortcuts.toggleWindowOnPlayPause")) {
+			return;
+		}
+
+		if (playPauseTimeout) {
+			clearTimeout(playPauseTimeout);
+		}
+		if (++playPauseCount >= 2) {
+			playPauseCount = 0;
+			clearTimeout(playPauseTimeout);
+			playPauseTimeout = null;
+			if (win.isVisible()) {
+				win.hide();
+				app.dock?.hide();
+			} else {
+				win.show();
+				app.dock?.show();
+			}
+		}
+		if (playPauseCount !== 0) {
+			playPauseTimeout = setTimeout(() => {
+				playPauseTimeout = null;
+				playPauseCount = 0;
+			}, 300);
+		}
+	}
+
 	try {
 		const secToMicro = n => Math.round(Number(n) * 1e6);
 		const microToSec = n => Math.round(Number(n) / 1e6);
